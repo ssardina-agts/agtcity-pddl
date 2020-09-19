@@ -1596,6 +1596,7 @@
         (not (assemble-main-guy ?a item9))
         (not (assembly-procedure-complete item9))
         (not (assembly-lock item9))
+        (increase (total-cost) 1)
     )
 )
 

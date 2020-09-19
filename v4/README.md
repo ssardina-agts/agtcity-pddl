@@ -1,6 +1,24 @@
-## Execution Details on Metric-FF
+## v4: Numeric fluents
+
+This version uses numeric fluents to capture the carrying capacity of the agents.
+
+Because it uses numeric fluents, we used v1.0 of [Metric-FF](https://fai.cs.uni-saarland.de/hoffmann/metric-ff.html), the one that entered the competition. All the version of Metric-FF can be found [here](https://github.com/ssardina-planning/ff-planners).
+
+Before using it, one has to change the number of allowed operators by modifying `ff.h` to something like this:
 
 ```
+#define MAX_OPERATORS 1050
+```
+
+I tried Metric-FF v2.0 with option `-s 0`, which I think it corresponds to the default in v1.0, and it gets stuck after 30 mins.
+
+
+
+So, under v1.0 we get:
+
+```
+[ssardina@Thinkpad-X1 v4]$ ~/git/soft/planning/ff-planners.git/Metric-FF-v1.0/ff -o domain.pddl -f problem.pddl 
+
 ff: parsing domain file
 domain 'AGENTS-IN-THE-CITY' defined
  ... done.
@@ -30,10 +48,11 @@ Cueing down from goal distance:   63 into depth [1]
                                   52            [1]
                                   51            [1]
                                   50            [1]
-                                  49            [1][2][3][4]^[[C^[[C
+                                  49            [1][2][3][4]
                                   48            [1][2][3]
                                   47            [1]
-                                  46            [1][2][3][4][5][6][7][8]
+                                  46            [1][2][3][4][5][6]
+[7][8]
                                   41            [1]
                                   40            [1]
                                   39            [1]
@@ -75,20 +94,8 @@ Cueing down from goal distance:   63 into depth [1]
                                    3            [1]
                                    2            [1]
                                    1            [1]
-                                   0
+                                   0            
 
-time spent:    0.03 seconds instantiating 173455 easy, 5384 hard action templates
-               0.04 seconds reachability analysis, yielding 1449 facts and 67897 actions
-               0.05 seconds creating final representation with 1030 relevant facts, 248 relevant fluents
-               0.19 seconds computing LNF
-               0.24 seconds building connectivity graph
-            1567.06 seconds searching, evaluating 13885 states, to a max depth of 8
-            1567.61 seconds total time
-```
-
-## Plan found on Metric-FF
-
-```
 ff: found legal plan as follows
 
 step    0: GOTO TRUCK4 STORAGE3 WORKSHOP3
@@ -182,4 +189,13 @@ step    0: GOTO TRUCK4 STORAGE3 WORKSHOP3
        88: CONSUME_ITEM4_ASSEMBLE_I9 CAR4
        89: POST_ASSEMBLE_I9_FREEUP_EVERYTHING TRUCK1 MOTORCYCLE4 WORKSHOP3
        90: RELEASE_ASSEMBLED_ITEM9 TRUCK1
+     
+
+time spent:    0.04 seconds instantiating 173455 easy, 5384 hard action templates
+               0.07 seconds reachability analysis, yielding 1449 facts and 67897 actions
+               0.09 seconds creating final representation with 1030 relevant facts, 248 relevant fluents
+               0.34 seconds computing LNF
+               0.38 seconds building connectivity graph
+            1846.91 seconds searching, evaluating 13885 states, to a max depth of 8
+            1847.83 seconds total time
 ```
