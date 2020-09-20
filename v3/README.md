@@ -11,7 +11,7 @@ We tried Metric-FF and Madagascar.
 
 ## Metric-FF
 
-Unfortunately, Metric-FF with optimisation (`-O`) crashes:
+Unfortunately, Metric-FF v1.0 with optimisation (`-O`) crashes:
 
 ```
 [ssardina@Thinkpad-X1 v3]$ ~/git/soft/planning/ff-planners.git/Metric-FF-v1.0/ff -o domain.pddl -f problem.pddl -O 
@@ -25,6 +25,56 @@ problem 'COMPLETE-JOBS' defined
 
 Segmentation fault
 ```
+
+
+
+So I tried it with version v2.0 and it gets stucks and does not return after 30+ minutes:
+
+```
+[ssardina@Thinkpad-X1 v3]$ ~/git/soft/planning/ff-planners.git/Metric-FF-v2.1/ff -o domain.pddl -f problem.pddl 
+
+ff: parsing domain file
+domain 'AGENTS-IN-THE-CITY' defined
+ ... done.
+ff: parsing problem file
+problem 'COMPLETE-JOBS' defined
+ ... done.
+
+
+translating negated cond for predicate ITEM-ASSEMBLED
+translating negated cond for predicate ASSEMBLY-RESOURCES-ACQUIRED
+translating negated cond for predicate REQUIRED-ROLES-ARRANGED-FOR-ASSEMBLY
+translating negated cond for predicate AGENT-BUSY
+translating negated cond for predicate ITEM-ARRANGED-FOR-ASSEMBLY
+translating negated cond for predicate ASSEMBLY-LOCK
+translating negated cond for predicate WORKSHOP-BUSY
+translating negated cond for predicate ASSEMBLY-REQUIRED-AGENT
+translating negated cond for predicate =
+translating negated cond for predicate AGENT-CARRYING-ITEM
+
+ff: search configuration is Enforced Hill-Climbing, then A*epsilon with weight 5.
+Metric is ((1.00*[RF0](TOTAL-COST)) - () + 0.00)
+COST MINIMIZATION DONE (WITH cost-minimizing relaxed plans).
+
+Cueing down from goal distance:   61 into depth [1]
+                                  60            [1]
+                                  59            [1]
+                                  58            [1]
+                                  57            [1]
+                                  56            [1]
+                                  55            [1]
+                                  54            [1]
+                                  53            [1]
+                                  52            [1]
+                                  51            [1]
+                                  50            [1]
+                                  49            [1]
+                                  48            [1][2][3][4][5][6]
+```
+
+
+
+
 
 
 Otherwise it works, but no minimization is actually performed:
